@@ -12,7 +12,7 @@ const picture = (data) => {
   };
 };
 
-export async function fetchNewPictures(number) {
+async function fetchNewPictures(number) {
   const key = import.meta.env.VITE_UNSPLASH_KEY;
   let data = null;
   try {
@@ -38,3 +38,19 @@ export async function fetchNewPictures(number) {
 
   return pictures;
 }
+
+function shufflePictures(pictures) {
+  let pics = [...pictures];
+  let currIdx = pics.length - 1;
+
+  while (currIdx >= 0) {
+    // get random index [0..curr_idx] and add swap them
+    const randomIdx = Math.floor(Math.random() * (currIdx + 1));
+    [pics[randomIdx], pics[currIdx]] = [pics[currIdx], pics[randomIdx]];
+    currIdx--;
+  }
+
+  return pics;
+}
+
+export { fetchNewPictures, shufflePictures };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchNewPictures } from './Pictures';
+import { fetchNewPictures, shufflePictures } from './Pictures';
 import './Game.css';
 
 function Board() {
@@ -10,9 +10,15 @@ function Board() {
     setPictures(new_pictures);
   };
 
+  const handleShuffle = async () => {
+    const new_pictures = shufflePictures(pictures);
+    setPictures(new_pictures);
+  };
+
   return (
     <>
       <button onClick={updatePictures}> New board </button>
+      <button onClick={handleShuffle}> Shuffle pictures </button>
 
       <div className="board">
         {pictures.map((pic) => {
