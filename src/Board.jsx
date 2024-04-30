@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function Board({ pictures }) {
   return (
     <>
@@ -17,4 +19,8 @@ function Board({ pictures }) {
   );
 }
 
-export { Board };
+Board.propTypes = {
+  pictures: PropTypes.array.isRequired,
+};
+
+export default Board;
