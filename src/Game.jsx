@@ -1,27 +1,41 @@
+import { useEffect } from 'react';
+import { GameStatus } from './GameStatus';
+import { fetchNewPictures } from './Pictures';
 import { Board } from './Board';
-import { fetchNewPictures, shufflePictures } from './Pictures.js';
-import { useState } from 'react';
+
 import './Game.css';
 
 export function Game() {
-  const [pictures, setPictures] = useState([]);
+  let gameStatus = GameStatus();
 
-  const updatePictures = async () => {
-    const new_pictures = await fetchNewPictures(10);
-    setPictures(new_pictures);
+  const newGame = async () => {
+    const newPictures = await fetchNewPictures(10);
+    gameStatus.setNewGame(newPictures);
   };
 
-  const handleShuffle = async () => {
-    const new_pictures = shufflePictures(pictures);
-    setPictures(new_pictures);
-  };
+  useEffect(() => {
+    let ignore = false;
+
+    const fetchFn = async () => {
+      const newPictures = await fetchNewPictures(10);
+      if (!ignore) {
+        gameStatus.setNewGame(newPictures);
+      }
+    };
+    fetchFn();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   return (
     <>
-      <button onClick={updatePictures}> New board </button>
-      <button onClick={handleShuffle}> Shuffle pictures </button>
-
-      <Board pictures={pictures} />
+      <button onClick={() => newGame()}> New game </button>
+      <button onClick={gameStatus.start}> Start game </button>
+      <Board
+        pictures={gameStatus.getPictures()}
+        onCardClick={gameStatus.markPicture}
+      />
     </>
   );
 }

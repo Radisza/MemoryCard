@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-function Board({ pictures }) {
+export function Board({ pictures, onCardClick }) {
   return (
     <>
       <div className="board">
@@ -8,9 +8,10 @@ function Board({ pictures }) {
           return (
             <img
               crossOrigin="anonymous"
-              key={pic.getUrl()}
+              key={pic.getId()}
               className="card"
               src={pic.getUrl()}
+              onClick={() => onCardClick(pic)}
             />
           );
         })}
@@ -21,6 +22,5 @@ function Board({ pictures }) {
 
 Board.propTypes = {
   pictures: PropTypes.array.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };
-
-export default Board;
