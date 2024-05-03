@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { shufflePictures } from './Pictures';
 
-class GameState {
+export class GameState {
   static NotStarted = new GameState('Not started');
   static Run = new GameState('Run');
   static Pause = new GameState('Paused');

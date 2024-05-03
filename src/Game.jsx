@@ -1,17 +1,22 @@
-import { useEffect } from 'react';
-import { GameStatus } from './GameStatus';
-import { fetchNewPictures } from './Pictures';
+import { useEffect, useState, useCallback } from 'react';
+import { fetchNewPictures, shufflePictures } from './Pictures';
 import { Board } from './Board';
-
+import { GameState } from './GameStatus';
 import './Game.css';
 
-export function Game() {
-  let gameStatus = GameStatus();
+function newGame() {}
 
-  const newGame = async () => {
-    const newPictures = await fetchNewPictures(10);
-    gameStatus.setNewGame(newPictures);
+export function Game() {
+  const newGameStatus = (pictures) => {
+    return {
+      pictures: pictures,
+      picturesLeft: new Set(pictures.map((pic) => pic.getId())),
+      markedPictures: new Set(),
+      score: 0,
+      state: GameState.NotStarted,
+    };
   };
+  const [gameStatus, setGameStatus] = useState(newGameStatus([]));
 
   useEffect(() => {
     let ignore = false;
@@ -19,10 +24,12 @@ export function Game() {
     const fetchFn = async () => {
       const newPictures = await fetchNewPictures(10);
       if (!ignore) {
-        gameStatus.setNewGame(newPictures);
+        setGameStatus(newGameStatus(newPictures));
       }
     };
+
     fetchFn();
+
     return () => {
       ignore = true;
     };
@@ -30,11 +37,13 @@ export function Game() {
 
   return (
     <>
-      <button onClick={() => newGame()}> New game </button>
       <button onClick={gameStatus.start}> Start game </button>
       <Board
-        pictures={gameStatus.getPictures()}
-        onCardClick={gameStatus.markPicture}
+        pictures={gameStatus.pictures}
+        onCardClick={() => {
+          const new_images = shufflePictures(gameStatus.pictures);
+          setGameStatus({ ...gameStatus, pictures: new_images });
+        }}
       />
     </>
   );
