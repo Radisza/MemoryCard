@@ -4,8 +4,6 @@ import { Board } from './Board';
 import { GameState } from './GameStatus';
 import './Game.css';
 
-function newGame() {}
-
 export function Game() {
   const newGameStatus = (pictures) => {
     return {
@@ -17,26 +15,36 @@ export function Game() {
     };
   };
   const [gameStatus, setGameStatus] = useState(newGameStatus([]));
+  const [newGameOnChange, setNewGame] = useState(true);
 
   useEffect(() => {
-    let ignore = false;
-
-    const fetchFn = async () => {
+    async function newGame() {
+      const btn = document.getElementById('newGameBtn');
+      btn.disabled = true;
       const newPictures = await fetchNewPictures(10);
       if (!ignore) {
         setGameStatus(newGameStatus(newPictures));
+        btn.disabled = false;
       }
-    };
-
-    fetchFn();
+    }
+    let ignore = false;
+    newGame();
 
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [newGameOnChange]);
 
   return (
     <>
+      <button
+        id="newGameBtn"
+        onClick={() => {
+          setNewGame(!newGameOnChange);
+        }}
+      >
+        New game
+      </button>
       <button onClick={gameStatus.start}> Start game </button>
       <Board
         pictures={gameStatus.pictures}
