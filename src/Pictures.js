@@ -12,6 +12,17 @@ const picture = (data) => {
   };
 };
 
+function loadImage(data) {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = data.urls.raw;
+    img.key = data.id;
+    return img;
+  });
+}
+
 async function fetchNewPictures(number) {
   const key = import.meta.env.VITE_UNSPLASH_KEY;
   let data = null;
@@ -28,14 +39,16 @@ async function fetchNewPictures(number) {
   }
   data = await data.json();
 
-  console.log('FETCHED');
   console.log(data);
 
   let pictures = [];
+  let promises = [];
   for (const pic of data) {
     pictures.push(picture(pic));
+    promises.push(loadImage(pic));
   }
 
+  await Promise.all(promises);
   return pictures;
 }
 
