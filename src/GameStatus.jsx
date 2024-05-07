@@ -3,7 +3,7 @@ import { shufflePictures } from './Pictures';
 
 const initialGameStatus = (pictures) => {
   return {
-    pictures: pictures,
+    pictures: shufflePictures(pictures),
     picturesLeft: new Set(pictures.map((pic) => pic.getId())),
     markedPictures: new Set(),
     score: 0,

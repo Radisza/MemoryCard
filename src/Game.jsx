@@ -32,16 +32,19 @@ export function Game() {
     };
   }, [newGameOnChange]);
 
+  const handleNewGame = () => setNewGame(!newGameOnChange);
+  function handleResetGame() {
+    dispatch({
+      type: 'new',
+      pictures: gameStatus.pictures,
+    });
+  }
   return (
     <>
-      <button
-        id="newGameBtn"
-        onClick={() => {
-          setNewGame(!newGameOnChange);
-        }}
-      >
+      <button id="newGameBtn" onClick={handleNewGame}>
         New game
       </button>
+      <button onClick={handleResetGame}>Reset</button>
       <div> Score: {gameStatus.score} </div>
       <div> Game state: {gameStatus.state.stateToString()} </div>
       <Board
