@@ -24,7 +24,6 @@ function gameStatusReducer(gameStatus, action) {
         return gameStatus;
       }
       const id = action.pictureId;
-      console.log(gameStatus);
       if (gameStatus.picturesLeft.delete(id)) {
         gameStatus.markedPictures.add(id);
         return {

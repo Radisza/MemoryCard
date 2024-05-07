@@ -48,7 +48,7 @@ export function Game() {
       <div> Score: {gameStatus.score} </div>
       <div> Game state: {gameStatus.state.stateToString()} </div>
       <Board
-        pictures={gameStatus.pictures}
+        gameStatus={gameStatus}
         onCardClick={(pictureId) =>
           dispatch({ type: 'makeMove', pictureId: pictureId })
         }
