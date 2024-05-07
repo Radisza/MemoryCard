@@ -39,8 +39,6 @@ async function fetchNewPictures(number) {
   }
   data = await data.json();
 
-  console.log(data);
-
   let pictures = [];
   let promises = [];
   for (const pic of data) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { shufflePictures } from './Pictures';
 
 export class GameState {
@@ -21,7 +21,7 @@ export class GameState {
   }
 }
 
-export const GameStatus = () => {
+const GameStatus = () => {
   const newGame = (pictures) => {
     return {
       pictures: pictures,
@@ -31,6 +31,7 @@ export const GameStatus = () => {
       state: GameState.NotStarted,
     };
   };
+
   const [data, setData] = useState(newGame([]));
 
   const getPictures = () => {
@@ -40,6 +41,10 @@ export const GameStatus = () => {
   const setNewGame = (pictures) => {
     let new_data = newGame(pictures);
     setData(new_data);
+  };
+
+  const shuffle = () => {
+    setData({ ...data, pictures: shufflePictures(data.pictures) });
   };
 
   const getScore = () => {
@@ -101,5 +106,6 @@ export const GameStatus = () => {
     newGame,
     setNewGame,
     getPictures,
+    shuffle,
   };
 };
