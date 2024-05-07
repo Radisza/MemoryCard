@@ -7,7 +7,7 @@ const initialGameStatus = (pictures) => {
     picturesLeft: new Set(pictures.map((pic) => pic.getId())),
     markedPictures: new Set(),
     score: 0,
-    state: GameState.NotStarted,
+    state: GameState.Run,
   };
 };
 
@@ -15,18 +15,40 @@ function gameStatusReducer(gameStatus, action) {
   switch (action.type) {
     case 'new':
       return initialGameStatus(action.pictures);
-    case 'shuffle':
-      return {
-        ...gameStatus,
-        pictures: shufflePictures(gameStatus.pictures),
-      };
-    case 'start':
-      return {
-        ...gameStatus,
-        state: GameState.Run,
-      };
+    case 'finished':
+      return (
+        gameStatus.state == GameState.Win || gameStatus.state == GameState.Lose
+      );
+    case 'makeMove': {
+      if (gameStatus.state != GameState.Run) {
+        return gameStatus;
+      }
+      const id = action.pictureId;
+      console.log(gameStatus);
+      if (gameStatus.picturesLeft.delete(id)) {
+        gameStatus.markedPictures.add(id);
+        return {
+          ...gameStatus,
+          pictures: shufflePictures(gameStatus.pictures),
+          score: gameStatus.score + 1,
+          markedPictures: new Set(gameStatus.markedPictures),
+          picturesLeft: new Set(gameStatus.picturesLeft),
+          state:
+            gameStatus.picturesLeft.size == 0
+              ? GameState.Win
+              : gameStatus.state,
+        };
+      } else if (gameStatus.markedPictures.has(id)) {
+        return {
+          ...gameStatus,
+          state: GameState.Lose,
+        };
+      }
+      throw new Error(`Unknown picture id ${id} clicked.`);
+    }
+
     default:
-      throw Error(`Unknown action ${action.type}`);
+      throw new Error(`Unknown action ${action.type}`);
   }
 }
 

@@ -42,10 +42,13 @@ export function Game() {
       >
         New game
       </button>
-      <button onClick={() => dispatch({ type: 'start' })}> Start game </button>
+      <div> Score: {gameStatus.score} </div>
+      <div> Game state: {gameStatus.state.stateToString()} </div>
       <Board
         pictures={gameStatus.pictures}
-        onCardClick={() => dispatch({ type: 'shuffle' })}
+        onCardClick={(pictureId) =>
+          dispatch({ type: 'makeMove', pictureId: pictureId })
+        }
       />
     </>
   );

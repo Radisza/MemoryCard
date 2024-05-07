@@ -11,7 +11,7 @@ export function Board({ pictures, onCardClick }) {
               key={pic.getId()}
               className="card"
               src={pic.getUrl()}
-              onClick={() => onCardClick(pic)}
+              onClick={() => onCardClick(pic.getId())}
             />
           );
         })}
