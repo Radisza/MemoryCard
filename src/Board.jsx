@@ -7,7 +7,6 @@ export function Board({ pictures, onCardClick }) {
         {pictures.map((pic) => {
           return (
             <img
-              crossOrigin="anonymous"
               key={pic.getId()}
               className="card"
               src={pic.getUrl()}
