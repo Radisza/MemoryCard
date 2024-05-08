@@ -3,7 +3,7 @@ const picture = (data) => {
     return data.id;
   };
   const getUrl = () => {
-    return data.urls.raw;
+    return data.urls.thumb;
   };
 
   return {

@@ -6,10 +6,10 @@
 }
 
 .board {
-  flex-grow: 1;
   margin: auto;
   padding: 16px;
-  width: 90%;
+  max-width: 90%;
+  max-height: 100%;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
