@@ -25,7 +25,7 @@ export function Board({
   gameStatus,
   onCardClick,
   nextLvlCallback,
-  resetRoundCallback,
+  sameLevelCallback,
 }) {
   switch (gameStatus.state) {
     case GameState.Run:
@@ -52,7 +52,7 @@ export function Board({
           <div>You win!</div>
           <div>
             <button onClick={nextLvlCallback}>Go to next level</button>
-            <button onClick={resetRoundCallback}>
+            <button onClick={sameLevelCallback}>
               Continue on the same level
             </button>
           </div>
@@ -65,5 +65,5 @@ Board.propTypes = {
   gameStatus: PropTypes.object.isRequired,
   onCardClick: PropTypes.func.isRequired,
   nextLvlCallback: PropTypes.func.isRequired,
-  resetRoundCallback: PropTypes.func.isRequired,
+  sameLevelCallback: PropTypes.func.isRequired,
 };

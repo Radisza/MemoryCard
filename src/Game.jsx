@@ -88,7 +88,7 @@ export function Game() {
         nextLvlCallback={() => {
           handleNewLevel(gameStatus.level + 1);
         }}
-        resetRoundCallback={handleResetRound}
+        sameLevelCallback={handleNewImages}
       />
     </>
   );
