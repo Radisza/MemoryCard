@@ -23,16 +23,17 @@ function loadImage(data) {
   });
 }
 
-async function fetchNewPictures(number) {
+async function fetchNewPictures(number, query) {
   const key = import.meta.env.VITE_UNSPLASH_KEY;
   let data = null;
+  let url = `https://api.unsplash.com/photos/random?count=${number}&client_id=${key}`;
+  if (query) {
+    url += `&query=${query}`;
+  }
   try {
-    data = await fetch(
-      `https://api.unsplash.com/photos/random?count=${number}&client_id=${key}`,
-      {
-        mode: 'cors',
-      }
-    );
+    data = await fetch(url, {
+      mode: 'cors',
+    });
   } catch (error) {
     console.log(`Downloat failed with error ${error}`);
     return;
