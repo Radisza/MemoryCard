@@ -8,13 +8,17 @@ const initialGameStatus = (pictures) => {
     markedPictures: new Set(),
     score: 0,
     state: GameState.Run,
+    level: 0,
   };
 };
 
 function gameStatusReducer(gameStatus, action) {
   switch (action.type) {
-    case 'new':
-      return initialGameStatus(action.pictures);
+    case 'newRound':
+      return {
+        ...initialGameStatus(action.pictures),
+        level: gameStatus.level,
+      };
     case 'finished':
       return (
         gameStatus.state == GameState.Win || gameStatus.state == GameState.Lose
@@ -45,6 +49,11 @@ function gameStatusReducer(gameStatus, action) {
       }
       throw new Error(`Unknown picture id ${id} clicked.`);
     }
+    case 'newLevel':
+      return {
+        ...gameStatus,
+        level: action.level,
+      };
 
     default:
       throw new Error(`Unknown action ${action.type}`);

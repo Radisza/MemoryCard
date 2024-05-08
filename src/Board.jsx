@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { GameState } from './GameState';
 
-const ClickableImageList = (images, onCardClick) => {
+const ClickableImageList = ({ images, onCardClick }) => {
   return images.map((img) => {
     return (
       <img
@@ -14,28 +14,56 @@ const ClickableImageList = (images, onCardClick) => {
   });
 };
 
-const MarkedImageList = (images, idsToMark) => {
+const MarkedImageList = ({ images, idsToMark }) => {
   return images.map((img) => {
     const classes = idsToMark.has(img.getId()) ? 'card markedCard' : 'card';
     return <img key={img.getId()} className={classes} src={img.getUrl()} />;
   });
 };
 
-export function Board({ gameStatus, onCardClick }) {
-  let images = [];
-  if (gameStatus.state == GameState.Run) {
-    images = ClickableImageList(gameStatus.pictures, onCardClick);
-  } else if (gameStatus.state == GameState.Lose) {
-    images = MarkedImageList(gameStatus.pictures, gameStatus.markedPictures);
+export function Board({
+  gameStatus,
+  onCardClick,
+  nextLvlCallback,
+  resetRoundCallback,
+}) {
+  switch (gameStatus.state) {
+    case GameState.Run:
+      return (
+        <div className="board">
+          <ClickableImageList
+            images={gameStatus.pictures}
+            onCardClick={onCardClick}
+          />
+        </div>
+      );
+    case GameState.Lose:
+      return (
+        <div className="board">
+          <MarkedImageList
+            images={gameStatus.pictures}
+            idsToMark={gameStatus.markedPictures}
+          />
+        </div>
+      );
+    case GameState.Win:
+      return (
+        <div className="board">
+          <div>You win!</div>
+          <div>
+            <button onClick={nextLvlCallback}>Go to next level</button>
+            <button onClick={resetRoundCallback}>
+              Continue on the same level
+            </button>
+          </div>
+        </div>
+      );
   }
-  return (
-    <>
-      <div className="board">{images}</div>
-    </>
-  );
 }
 
 Board.propTypes = {
   gameStatus: PropTypes.object.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  nextLvlCallback: PropTypes.func.isRequired,
+  resetRoundCallback: PropTypes.func.isRequired,
 };
