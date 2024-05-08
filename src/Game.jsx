@@ -59,14 +59,16 @@ export function Game() {
     });
   }
   return (
-    <>
-      <UserPanel
-        setNewLevel={handleNewLevel}
-        fetchNewImages={handleNewImages}
-        resetRound={handleResetRound}
-        setImagesTopic={setImagesTopic}
-      />
-      <StatsPanel gameStatus={gameStatus} />
+    <div className="gamePage">
+      <div className="gamePanel">
+        <UserPanel
+          setNewLevel={handleNewLevel}
+          fetchNewImages={handleNewImages}
+          resetRound={handleResetRound}
+          setImagesTopic={setImagesTopic}
+        />
+        <StatsPanel gameStatus={gameStatus} />
+      </div>
       <Board
         gameStatus={gameStatus}
         onCardClick={(pictureId) =>
@@ -77,6 +79,6 @@ export function Game() {
         }}
         sameLevelCallback={handleNewImages}
       />
-    </>
+    </div>
   );
 }

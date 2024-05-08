@@ -1,13 +1,54 @@
+.gamePage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .board {
+  flex-grow: 1;
   margin: auto;
   padding: 16px;
-  width: 50vw;
-  height: 50vh;
+  width: 90%;
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   overflow: scroll;
+}
+
+.gamePanel {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 8px;
+  padding: 16px;
+}
+
+.userPanel {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.userPanelMenu > button {
+  padding: 8px;
+  margin: 8px;
+  background-color: rgb(215, 215, 215);
+  box-shadow: 0 0 10px rgb(50, 50, 50);
+}
+
+.imageTopicPanel {
+  font-size: 1.2rem;
+}
+
+.statsPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.statsPanel > div:nth-child(1) {
+  font-weight: 700;
 }
 
 .card {

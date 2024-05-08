@@ -15,7 +15,7 @@ export function ImageTopics({ setImagesTopic }) {
   }
 
   return (
-    <>
+    <div className="imageTopicPanel">
       <label htmlFor="imageTopic"> Chools topics of your images </label>
       <select
         id="imageTopic"
@@ -24,7 +24,7 @@ export function ImageTopics({ setImagesTopic }) {
       >
         {options}
       </select>
-    </>
+    </div>
   );
 }
 

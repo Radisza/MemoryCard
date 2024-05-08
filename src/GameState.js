@@ -1,9 +1,9 @@
 export class GameState {
   static NotStarted = new GameState('Not started');
-  static Run = new GameState('Run');
+  static Run = new GameState('Running');
   static Pause = new GameState('Paused');
-  static Win = new GameState('Win');
-  static Lose = new GameState('Lose');
+  static Win = new GameState('Won');
+  static Lose = new GameState('Lost');
 
   constructor(name) {
     this.name = name;
