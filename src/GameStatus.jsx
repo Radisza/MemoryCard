@@ -6,7 +6,6 @@ const initialGameStatus = (pictures) => {
     pictures: shufflePictures(pictures),
     picturesLeft: new Set(pictures.map((pic) => pic.getId())),
     markedPictures: new Set(),
-    score: 0,
     state: GameState.Run,
     level: 0,
   };
@@ -33,7 +32,6 @@ function gameStatusReducer(gameStatus, action) {
         return {
           ...gameStatus,
           pictures: shufflePictures(gameStatus.pictures),
-          score: gameStatus.score + 1,
           markedPictures: new Set(gameStatus.markedPictures),
           picturesLeft: new Set(gameStatus.picturesLeft),
           state:

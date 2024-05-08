@@ -67,7 +67,7 @@ export function Game() {
         Reset round
       </button>
 
-      <div> Score: {gameStatus.score} </div>
+      <div> Images left: {gameStatus.picturesLeft.size} </div>
       <div> Game state: {gameStatus.state.stateToString()} </div>
       <div> Level: {gameStatus.level} </div>
       <Board
