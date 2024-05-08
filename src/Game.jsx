@@ -5,6 +5,7 @@ import { gameStatusReducer, initialGameStatus } from './GameStatus';
 import './Game.css';
 import { NO_IMAGE_TOPIC, DEFAULT_IMAGE_TOPIC } from './ImageTopics';
 import { UserPanel } from './UserPanel';
+import { StatsPanel } from './StatsPanel';
 
 const MIN_IMAGES_NUM = 10;
 const IMAGES_LEVEL_RATIO = 5;
@@ -65,9 +66,7 @@ export function Game() {
         resetRound={handleResetRound}
         setImagesTopic={setImagesTopic}
       />
-      <div> Images left: {gameStatus.picturesLeft.size} </div>
-      <div> Game state: {gameStatus.state.stateToString()} </div>
-      <div> Level: {gameStatus.level} </div>
+      <StatsPanel gameStatus={gameStatus} />
       <Board
         gameStatus={gameStatus}
         onCardClick={(pictureId) =>
