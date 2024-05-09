@@ -20,8 +20,8 @@ export function Game() {
 
   useEffect(() => {
     async function newGame() {
-      const btn = document.getElementById('newGameBtn');
-      btn.disabled = true;
+      const btns = document.querySelectorAll('.fetchBtn');
+      btns.forEach((btn) => (btn.disabled = true));
       const topic = imagesTopic == NO_IMAGE_TOPIC ? null : imagesTopic;
       const newPictures = await fetchNewPictures(
         MIN_IMAGES_NUM + IMAGES_LEVEL_RATIO * gameStatus.level,
@@ -32,7 +32,7 @@ export function Game() {
           type: 'newRound',
           pictures: newPictures,
         });
-        btn.disabled = false;
+        btns.forEach((btn) => (btn.disabled = false));
       }
     }
     let ignore = false;

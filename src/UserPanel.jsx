@@ -10,11 +10,7 @@ export function UserPanel({
   return (
     <div className="userPanel">
       <div className="userPanelMenu">
-        <button
-          className="fetchBtn"
-          id="newGameBtn"
-          onClick={() => setNewLevel(0)}
-        >
+        <button className="fetchBtn" onClick={() => setNewLevel(0)}>
           New game
         </button>
         <button className="fetchBtn" onClick={fetchNewImages}>
