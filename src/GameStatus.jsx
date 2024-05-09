@@ -27,17 +27,17 @@ function gameStatusReducer(gameStatus, action) {
         return gameStatus;
       }
       const id = action.pictureId;
-      if (gameStatus.picturesLeft.delete(id)) {
-        gameStatus.markedPictures.add(id);
+      if (gameStatus.picturesLeft.has(id)) {
+        let newLeft = new Set(gameStatus.picturesLeft);
+        newLeft.delete(id);
+        let newMarked = new Set(gameStatus.markedPictures);
+        newMarked.add(id);
         return {
           ...gameStatus,
           pictures: shufflePictures(gameStatus.pictures),
-          markedPictures: new Set(gameStatus.markedPictures),
-          picturesLeft: new Set(gameStatus.picturesLeft),
-          state:
-            gameStatus.picturesLeft.size == 0
-              ? GameState.Win
-              : gameStatus.state,
+          markedPictures: newMarked,
+          picturesLeft: newLeft,
+          state: newLeft.size == 0 ? GameState.Win : gameStatus.state,
         };
       } else if (gameStatus.markedPictures.has(id)) {
         return {
