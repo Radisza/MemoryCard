@@ -29,6 +29,9 @@ export function Board({
 }) {
   switch (gameStatus.state) {
     case GameState.Run:
+      if (gameStatus.pictures.length == 0) {
+        return <div className="board">Loading images...</div>;
+      }
       return (
         <div className="board">
           <ClickableImageList
