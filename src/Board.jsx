@@ -26,12 +26,13 @@ export function Board({
   onCardClick,
   nextLvlCallback,
   sameLevelCallback,
+  loading,
 }) {
+  if (loading) {
+    return <div className="board">Loading images...</div>;
+  }
   switch (gameStatus.state) {
     case GameState.Run:
-      if (gameStatus.pictures.length == 0) {
-        return <div className="board">Loading images...</div>;
-      }
       return (
         <div className="board">
           <ClickableImageList
@@ -69,4 +70,5 @@ Board.propTypes = {
   onCardClick: PropTypes.func.isRequired,
   nextLvlCallback: PropTypes.func.isRequired,
   sameLevelCallback: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
